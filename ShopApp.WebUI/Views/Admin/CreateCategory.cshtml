@@ -1,0 +1,21 @@
+﻿@model CategoryModel
+@{
+    ViewData["Title"] = "CreateCategory";
+}
+
+<h1>CreateCategory</h1>
+<div class="row">
+    <div class="col-8">
+        <form action="/Admin/CreateCategory" method="post">
+            <div class="mb-3">
+                <label class="form-label">Category Name</label>
+                <input type="text" name="name" value="@Model.Name" class="form-control"> <!-- name=Giyim-->
+            </div>
+
+            <div class="mb-3 col-3">
+                <input type="submit" value="Save Category" class="btn btn-primary">
+            </div>
+
+        </form>
+    </div>
+</div>

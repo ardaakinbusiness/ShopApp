@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ShopApp.WebUI</title>
+   
+    <link href="/modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/d739071501.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/ShopApp.WebUI.styles.css" asp-append-version="true" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="/modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+  <partial name="_navbar" />
+   <div class="container">
+            @RenderBody()
+    </div>
+  
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - ShopApp.WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+   
+    <script src="/modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+</body>
+</html>

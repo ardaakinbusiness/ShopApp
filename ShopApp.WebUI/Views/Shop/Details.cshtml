@@ -1,0 +1,77 @@
+﻿@model ProductDetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="~/img/@Model.Product.Images[0].ImageUrl" alt="@Model.Product.Name" class="img-fluid" id="ImageBox" />
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.Product.Images)
+            {
+                <div class="col-md-3 product-small-img">
+                    <img src="~/img/@item.ImageUrl" alt="@Model.Product.Name" class="img-fluid" style="display:block" onclick="myFunction(this)" />
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h1>
+            @Model.Product.Name
+        </h1>
+        <hr />
+        @foreach (var item in Model.Categories)
+        {
+            <a href="#" class="btn btn-link p-0 mb-3">@item.Name</a>
+        }
+
+        <div class="mb-3">
+            <h4 class="text-primary mb-3">
+                @Model.Product.Price
+            </h4>
+
+            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="form-inline">
+                <input type="hidden" name="productId" value="@Model.Product.Id" />
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <input type="number" name="quantity" class="form-control" value="1" min="1" step="1" />
+                    </div>
+                    <div class="col-md-9 mb-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-cart-plus"></i> Add To Cart
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#desc-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Description</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#comment" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Comments</button>
+            </li>
+
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="desc-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">@Html.Raw(Model.Product.Description)</div>
+            <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="profile-tab" data-product-id="@Model.Product.Id" tabindex="0" data-url="@Url.Action(action: "ShowProductComments", controller: "Comment", new { id = Model.Product.Id })">
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="~/js/comment.js"></script>

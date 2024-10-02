@@ -1,0 +1,45 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "UserEdit";
+}
+
+<h1>UserEdit</h1>
+<hr />
+<form action="/Admin/UserEdit" method="post">
+   <div class="row">
+       <div class="col-md-8">
+           <input type="hidden" name="Email" value="@Model.Email"/>
+           <div class="mb-3 col-md-6 offset-md-3">
+               <label asp-for="FullName" class="form-label"></label>
+               <input asp-for="FullName" class="form-control">
+               <span asp-validation-for="FullName" class="text-danger"></span>
+           </div>
+            <div class="mb-3 col-md-6 offset-md-3">
+                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" class="form-control">
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 col-md-6 offset-md-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-6 offset-md-3">
+                <label asp-for="EmailConfirmed" class="form-label"></label>
+                <input asp-for="EmailConfirmed" checked="@(Model.EmailConfirmed==true? true:false)">
+                <span asp-validation-for="EmailConfirmed" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-6 offset-md-3">
+                <label asp-for="IsAdmin" class="form-label"></label>
+                <input asp-for="IsAdmin" checked="@(Model.IsAdmin==true? true:false)">
+                <span asp-validation-for="IsAdmin" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-md-6 offset-md-3">
+                
+                <button type="submit" class="btn btn-primary">Save User</button>
+            </div>
+            
+       </div>
+   </div>
+</form>

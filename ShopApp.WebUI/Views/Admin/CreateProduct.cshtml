@@ -1,0 +1,37 @@
+﻿@model ProductModel
+@{
+    ViewData["Title"] = "CreateProduct";
+}
+
+<h1>CreateProduct</h1>
+
+<div class="row">
+    <div class="col-8">
+        <form action="/Admin/CreateProduct" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Product Name</label>
+                <input type="text" name="name" value="@Model.Name" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description" class="form-control" rows="5" cols="30">@Model.Description</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="text" name="price" value="@Model.Price" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Images</label>
+                <input type="file" name="files" value="" class="form-control" multiple>
+            </div>
+
+            <div class="mb-3 col-3">
+                <input type="submit" value="Save Product" class="btn btn-primary">
+            </div>
+          
+        </form>
+    </div>
+</div>

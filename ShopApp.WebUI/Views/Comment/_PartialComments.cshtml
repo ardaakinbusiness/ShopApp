@@ -1,0 +1,63 @@
+﻿@using System.Security.Claims
+
+@model List<Comment>
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+<style>
+    .btn-xs {
+        --bs-btn-padding-y: .25rem;
+        --bs-btn-padding-x: .5rem;
+        --bs-btn-font-size: .75rem;
+    }
+</style>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 input-group">
+          <input type="text" id="new_comment_text" class="form-control" placeholder="yorumunuz..." />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-success" onclick="doComment(this,'new_clicked',-1)">
+                    <i class="fa-regular fa-paper-plane"></i>
+                </button>
+                
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    <div class="d-flex">
+        <div class="flex-grow-1 ms-12">
+            <h6 class="col-md-12">@User.Identity.Name <small class="text-muted"><i>@item.CreateOn.ToString("dddd, dd MMMM yyyy")</i></small></h6>
+            <span id="comment_text_@item.Id" contenteditable="false"> @item.Text</span>
+
+            @if (userId == item.UserId && User.Identity.IsAuthenticated)
+            {
+                <span class="col-md-2 float-end">
+                    <button type="button" class="btn btn-warning btn-xs" data-edit-mode="false" onclick="doComment(this,'edit_clicked',@item.Id,'#comment_text_@item.Id')">
+                        <span class="fa-solid fa-edit"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs" onclick="doComment(this,'delete_clicked',@item.Id)">
+                        <span class="fas fa-trash-alt fa-xs"></span>
+                    </button>
+                </span>
+            }
+        </div>
+    </div>
+}

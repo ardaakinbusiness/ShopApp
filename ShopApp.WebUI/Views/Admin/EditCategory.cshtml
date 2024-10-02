@@ -1,0 +1,71 @@
+﻿@model CategoryModel
+@{
+    ViewData["Title"] = "EditCategory";
+}
+
+<h1>EditCategory</h1>
+
+
+    <div class="row">
+        <div class="col-4">
+            <form action="/Admin/EditCategory" method="post">
+                <div class="mb-3">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <label class="form-label">Category Name</label>
+                    <input type="text" name="name" value="@Model.Name" class="form-control">
+                </div>
+                <div class="mb-3 col-3">
+                    <input type="submit" value="Save Category" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-8">
+
+            @if(Model.Products.Count==0)
+            {
+            <div class="alert alert-warning">
+                <h4>No Products</h4>
+                </div>
+            }
+            else
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Image</th>
+                            <th>ProductName</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model.Products)
+                        {
+                            <tr>
+                                <td>@product.Id</td>
+                                <td><img src="~/img/@product.Images[0].ImageUrl" width="80" /></td>
+                                <td>@product.Name</td>
+                                <td>@product.Price</td>
+                                <td>@product.Description</td>
+                                <td>
+                                    <a class="btn btn-success btn-sm me-2" href="/admin/products/@product.Id">Edit</a>
+                                    <form action="/admin/deleteFromCategory" method="post" style="display:inline" onsubmit="return confirmDelete()">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                        <input type="hidden" name="categoryId" value="@Model.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+           
+        </div>
+    </div>

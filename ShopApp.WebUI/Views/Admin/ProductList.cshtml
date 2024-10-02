@@ -1,0 +1,58 @@
+﻿@model ProductListModel
+
+@{
+    ViewData["Title"] = "ProductList";
+}
+
+<h1>Admin Products</h1>
+<hr />
+
+@if (Model.Products.Count() == 0)
+{
+    <div class="alert alert-warning">
+        <h4>No Products</h4>
+    </div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>ProductName</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td><img src="~/img/@product.Images[0].ImageUrl" width="80" /></td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Description</td>
+                    <td>
+                        <a class="btn btn-success btn-sm me-2" href="/admin/products/@product.Id">Edit</a>
+                        <form action="/admin/DeleteProduct" method="post" style="display:inline" onsubmit="return confirmDelete()">
+                            <input type="hidden" name="id" value="@product.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+<script>
+    function confirmDelete() {
+        return confirm("Silmek istediğinize emin misiniz?")
+    }
+</script>

@@ -1,0 +1,52 @@
+﻿@model CategoryListModel
+@{
+    ViewData["Title"] = "CategoryList";
+}
+
+<h1>Admin Categories</h1>
+<hr />
+
+@if (Model.Categories.Count() == 0)
+{
+    <div class="alert alert-warning">
+        <h4>No Categories</h4>
+    </div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Category Name</th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var cat in Model.Categories)
+            {
+                <tr>
+                    <td>@cat.Id</td>
+                    <td>@cat.Name</td>
+                    <td>
+                        <a class="btn btn-success btn-sm me-2" href="/admin/categories/@cat.Id">Edit</a>
+                        <form action="/admin/DeleteCategory" method="post" style="display:inline" onsubmit="return confirmDelete()">
+                            <input type="hidden" name="id" value="@cat.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+<script>
+    function confirmDelete() {
+        return confirm("Silmek istediğinize emin misiniz?")
+    }
+</script>
+
